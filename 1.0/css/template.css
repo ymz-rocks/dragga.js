@@ -1,0 +1,23 @@
+﻿body
+{
+    background-color: #009dca;
+}
+
+#dragga
+{
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    bottom: 0px;
+    left: 0px;
+    margin: 18px;
+    background: #2bbae3 url('../images/dragga.png') no-repeat center;
+}
+
+    #dragga > .pick
+    {
+        width: 60px;
+        height: 60px;
+        cursor: default;
+        background: transparent url('') no-repeat center;
+    }

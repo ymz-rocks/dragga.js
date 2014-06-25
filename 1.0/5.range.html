@@ -1,0 +1,112 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>dragga demo page</title>
+    <meta name="viewport" content="initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0" />
+    <link href="css/template.css" rel="stylesheet" />
+    <script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
+    <script src="js/dragga.1.0.js"></script>
+    <style>
+        #dragga > .bar
+        {
+            width: 200px;
+            height: 30px;
+            margin: 10px;
+            background-color: #f1f1f1;
+            float: left;
+        }
+
+            #dragga > .bar > div
+            {
+                width: 30px;
+                height: 30px;
+                background-color: #c241ff;
+            }
+
+            #dragga > .bar > .range
+            {
+                position: absolute;
+                text-align: center;
+                color: #fefefe;
+                background-color: #1b68ff;
+            }
+
+            #dragga > .bar > div.pick
+            {
+                width: 10px;
+                height: 100%;
+                opacity: 0;
+                filter: alpha(opacity=0);
+            }
+
+
+        #dragga > .info
+        {
+            margin: 10px;
+            color: #fefefe;
+            font-size: 14pt;
+            line-height: 1.5;
+        }
+    </style>
+    <script>
+
+        $(function ()
+        {
+            var range = { min: 2, max: 7 };
+
+            $('#dragga > .bar > .pick').dragga
+            ({
+                minX: 1,
+                maxX: 10,
+
+                trigger: function (e)
+                {
+                    e.range.value.x = range[e.args.match(['min', 'max'])];
+
+                    range.unit = e.$.width();
+
+                    e.refresh(); resize(e, true);
+                },
+
+                drag: resize,
+            });
+
+            function resize(e, init)
+            {
+                if (!init)
+                {
+                    e.adjust();
+
+                    range[e.args.match(['min', 'max'])] = e.range.value.x;
+
+                    if (range.min == range.max || range.min > range.max || range.max < range.min)
+                    {
+                        if (e.args.match('min')) e.range.value.x = range.min - 1;
+                        else e.range.value.x = range.max + 1;
+
+                        e.refresh(); resize(e); return;
+                    }
+                }
+
+                var left = $('#dragga > .bar > div.min').position().left;
+                var width = $('#dragga > .bar > div.max').position().left + $('#dragga > .bar > div.max').width() - left;
+
+                $('#dragga > .bar > .range').css({ left: left, width: width });
+                $('#dragga > .info').text(range.min + ' - ' + range.max);
+            }
+
+        });
+
+    </script>
+</head>
+<body>
+    <div id="dragga">
+        <div class="bar">
+            <div class="x range"></div>
+            <div class="x pick min"></div>
+            <div class="x pick max"></div>
+        </div>
+        <div class="info"></div>
+    </div>
+</body>
+</html>

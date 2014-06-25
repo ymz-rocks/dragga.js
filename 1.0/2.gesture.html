@@ -1,0 +1,58 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>dragga demo page</title>
+    <meta name="viewport" content="initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0" />
+    <link href="css/template.css" rel="stylesheet" />
+    <script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
+    <script src="js/dragga.1.0.js"></script>
+
+    <style>
+        #dragga > .info
+        {
+            position: absolute;
+            right: 2px;
+            bottom: 2px;
+            color: #ffffff;
+            text-align: center;
+            border: 5px solid #181818;
+            background-color: #2020fe;
+            padding: 10px;
+            font-size: 14pt;
+            letter-spacing: 1px;
+        }
+    </style>
+    <script>
+
+        $(function ()
+        {
+            $('#dragga > .ghost').dragga
+            ({
+                start: print,
+
+                drag: print,
+
+                end: clear
+            });
+
+            function print(e)
+            {
+                $('#dragga > .info').text('x = ' + e.range.position.x + ', y = ' + e.range.position.y);
+            }
+
+            function clear()
+            {
+                $('#dragga > .info').text('drag it over!');
+            }
+        });
+
+    </script>
+</head>
+<body>
+    <div id="dragga">
+        <div class="ghost"></div>
+
+        <div class="info"></div>
+    </div>
+</body>
+</html>

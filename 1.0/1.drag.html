@@ -1,0 +1,54 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>dragga demo page</title>
+    <meta name="viewport" content="initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0" />
+    <link href="css/template.css" rel="stylesheet" />
+    <script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
+    <script src="js/dragga.1.0.js"></script>
+
+    <style>
+        #dragga > .pick.x
+        {
+            left: 64px;
+            background-image: url('images/x-axis.png');
+        }
+
+        #dragga > .pick.y
+        {
+            background-image: url('images/y-axis.png');
+        }
+
+        #dragga > .pick.xy
+        {
+            left: 128px;
+            background-image: url('images/xy-axis.png');
+        }
+    </style>
+    <script>
+
+        $(function ()
+        {
+            $('#dragga > .pick').dragga();
+
+            $(window).resize(resize);
+
+            function resize()
+            {
+                $('#dragga > .pick').dragga(function (e)
+                {
+                    e.refresh(400);
+                });
+            }
+        });
+
+    </script>
+</head>
+<body>
+    <div id="dragga">
+        <div class="pick x"></div>
+        <div class="pick y"></div>
+        <div class="pick xy"></div>
+    </div>
+</body>
+</html>

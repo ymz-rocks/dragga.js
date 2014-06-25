@@ -1,0 +1,127 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>dragga demo page</title>
+    <meta name="viewport" content="initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0" />
+    <link href="css/template.css" rel="stylesheet" />
+    <script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
+    <script src="js/dragga.1.0.js"></script>
+    <style>
+        #dragga > .bar
+        {
+            width: 120px;
+            height: 30px;
+            margin: 10px;
+            background-color: #f1f1f1;
+        }
+
+            #dragga > .bar > div
+            {
+                width: 30px;
+                height: 30px;
+                background-color: #c241ff;
+                text-align: center;
+                font-size: 12pt;
+                line-height: 1.7;
+                cursor: default;
+            }
+    </style>
+    <script>
+
+        $(function ()
+        {
+            $('#dragga > .standard.bar > .x').dragga();
+
+            $('#dragga > .value.bar > .x').dragga
+            ({
+                minX: 1,
+                maxX: 100,
+
+                drag: function (e)
+                {
+                    e.$.text(e.range.value.x);
+                }
+            });
+
+            $('#dragga > .onoff.bar > .x').dragga
+            ({
+                minX: 1,
+                maxX: 10,
+
+                drag: function (e)
+                {
+                    var distance = e.travel.to.x - e.travel.from.x;
+
+                    var value = (distance > 50) ? 10 : ((distance < -50) ? 1 : 0);
+
+                    if (value > 0)
+                    {
+                        e.range.value.x = value;
+                        e.stop();
+                    }
+
+                    $('body').css('background-color', (e.range.value.x > 1) ? '#009dca' : '#181818');
+                },
+
+                end: function (e)
+                {
+                    if (e.range.value.x > 5) e.range.value.x = 10;
+                    else e.range.value.x = 1;
+
+                    e.refresh(200);
+                }
+            });
+
+            $('#dragga > .limit.bar > .x').dragga
+            ({
+                minX: 1,
+                maxX: 100,
+
+                trigger: false,
+
+                drag: function (e)
+                {
+                    if (e.range.value.x == 100)
+                    {
+                        e.stop();
+                    }
+                    else
+                    {
+                        $('#dragga').css('background-color', '#009dca');
+                    }
+                },
+
+                end: function (e)
+                {
+                    e.range.value.x = 1;
+                    e.refresh(500);
+
+                    $('#dragga').css('background-color', '#2bbae3');
+                }
+            });
+
+        });
+
+    </script>
+</head>
+<body>
+    <div id="dragga">
+
+        <div class="standard bar">
+            <div class="x"></div>
+        </div>
+
+        <div class="value bar">
+            <div class="x"></div>
+        </div>
+
+        <div class="onoff bar">
+            <div class="x"></div>
+        </div>
+
+        <div class="limit bar">
+            <div class="x"></div>
+        </div>
+    </div>
+</body>
+</html>

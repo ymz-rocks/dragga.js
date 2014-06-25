@@ -1,0 +1,131 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>dragga demo page</title>
+    <meta name="viewport" content="initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0" />
+    <link href="css/template.css" rel="stylesheet" />
+    <script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
+    <script src="js/dragga.1.0.js"></script>
+    <style>
+        #dragga > .pick.r
+        {
+            background-image: url('images/channel-r.png');
+        }
+
+        #dragga > .pick.g
+        {
+            background-image: url('images/channel-g.png');
+        }
+
+        #dragga > .pick.b
+        {
+            background-image: url('images/channel-b.png');
+        }
+
+        #dragga > .pick.x.g
+        {
+            top: 64px;
+        }
+
+        #dragga > .pick.x.b
+        {
+            top: 128px;
+        }
+
+        #dragga > .pick.y.g
+        {
+            left: 64px;
+        }
+
+        #dragga > .pick.y.b
+        {
+            left: 128px;
+        }
+    </style>
+    <script>
+
+        $(function ()
+        {
+            var inner = { r: 43, g: 186, b: 227 };
+            var outer = { r: 0, g: 157, b: 202 };
+
+            var init =
+            {
+                x: function (e) { update(e, e.$, inner, true) },
+
+                y: function (e) { update(e, e.$.parent(), outer, true) }
+            }
+
+            var refresh =
+            {
+                x: function (e) { update(e, e.$, inner) },
+
+                y: function (e) { update(e, e.$.parent(), outer) }
+            }
+
+            $('#dragga > .pick.x').dragga
+            ({
+                minX: 0, maxX: 255,
+
+                trigger: init.x,
+
+                drag: refresh.x
+            });
+
+            $('#dragga > .pick.y').dragga
+            ({
+                minY: 0, maxY: 255,
+
+                trigger: init.y,
+
+                drag: refresh.y
+            });
+
+            $(window).resize(resize);
+
+            
+
+            function update(e, element, color, init)
+            {
+                var axis = e.args.match(['x', 'y']);
+                var channel = e.args.match(['r', 'g', 'b']);
+
+                if (init)
+                {
+                    e.range.value[axis] = color[channel];
+
+                    e.refresh();
+                }
+                else
+                {
+                    color[channel] = e.range.value[axis];
+                }
+
+                element.parent().css('background-color', 'rgb(' + color.r + ',' + color.g + ',' + color.b + ')');
+            }
+
+            function resize(e)
+            {
+                $('#dragga > .pick').dragga(function (e)
+                {
+                    e.refresh(400);
+                });
+            }
+        });
+
+
+
+    </script>
+</head>
+<body>
+    <div id="dragga">
+        <div class="pick r x"></div>
+        <div class="pick g x"></div>
+        <div class="pick b x"></div>
+
+        <div class="pick r y"></div>
+        <div class="pick g y"></div>
+        <div class="pick b y"></div>
+    </div>
+</body>
+</html>
