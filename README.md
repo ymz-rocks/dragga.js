@@ -1,3 +1,8 @@
+![project-poster][poster]
+
+[poster]:https://raw.githubusercontent.com/ymz-rocks/dragga.js/master/images/dragga.png "Dragga project"
+
+
 dragga
 ======
 
