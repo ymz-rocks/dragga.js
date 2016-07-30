@@ -1,4 +1,11 @@
-﻿(function ($)
+/*
+ * dragga.js JavaScript Library v1.0
+ * Copyright (c) 2016 ymz
+ * Released under a Creative Commons Attribution 4.0 International License
+ * https://github.com/ymz-rocks/dragga.js/blob/master/LICENSE.md
+ */
+
+(function ($)
 {
     function Event(element, args, help)
     {
