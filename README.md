@@ -1,6 +1,6 @@
 ![project-poster][poster]
 
-[poster]:https://raw.githubusercontent.com/ymz-rocks/dragga.js/master/images/dragga.png "Dragga project"
+[poster]:https://raw.githubusercontent.com/ymz-rocks/emblems/master/dragga.js/logo.png "Dragga project"
 
 
 dragga
